@@ -1,4 +1,7 @@
-import { Component, OnInit, Input,EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { DataServicesService } from '../shared-services/data-services.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { HttpClient } from '@angular/common/http';
 //import {  } from 'protractor';
 
 @Component({
@@ -7,20 +10,40 @@ import { Component, OnInit, Input,EventEmitter, Output } from '@angular/core';
   styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
-
+  private _url: string = "http://www.omdbapi.com/?t=flash&apikey=a11804e3";
+  private movieData;
   @Input('parentData') public name;
 
- @Output() public childEvent =new EventEmitter();
+  @Output() public childEvent = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private _dataService: DataServicesService,
+    private _http: HttpClient
+  ) { }
 
   ngOnInit() {
+    this.getDataFromService();
+
   }
 
-  onSubmit(){
+  // getData() {
+  //   this._http.get(this._url).subscribe(movies => {
+  //     debugger;
+  //     console.log(movies);
+  //   });
+  // }
+
+  getDataFromService() {
+    debugger; 
+    this._dataService.getMovieData().subscribe(movie => {
+      this.movieData = movie;
+    })
+  }
+
+  onSubmit() {
     console.log("Button clicked!");
     this.childEvent.emit("Hey Moshiur!!!")
-   // console.log(this.childEvent.emit);
+    // console.log(this.childEvent.emit);
   }
 
 

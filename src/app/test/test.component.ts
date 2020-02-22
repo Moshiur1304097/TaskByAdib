@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataServicesService } from '../shared-services/data-services.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { HttpClient } from '@angular/common/http';
 //import {  } from 'protractor';
 
@@ -12,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class TestComponent implements OnInit {
   private _url: string = "http://www.omdbapi.com/?t=flash&apikey=a11804e3";
   private movieData;
+  
   @Input('parentData') public name;
 
   @Output() public childEvent = new EventEmitter();
@@ -34,13 +34,14 @@ export class TestComponent implements OnInit {
   // }
 
   getDataFromService() {
-    debugger; 
+    // debugger; 
     this._dataService.getMovieData().subscribe(movie => {
       this.movieData = movie;
     })
   }
 
-  onSubmit() {
+  onSubmit()
+   {
     console.log("Button clicked!");
     this.childEvent.emit("Hey Moshiur!!!")
     // console.log(this.childEvent.emit);

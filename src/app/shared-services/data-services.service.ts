@@ -21,12 +21,13 @@ export class DataServicesService {
   }
 
   getVegetablesData(): Observable<any> {
-    return new Observable(observer => {
-      this._http.get(this._url2)
-        .subscribe(vegetables => {
-          observer.next(vegetables);
-        })
-    });
+    // return new Observable(observer => {
+    //   this._http.get(this._url2)
+    //     .subscribe(vegetables => {
+    //       observer.next(vegetables);
+    //     })
+    // });
+    return this._http.get(this._url2);
   }
 
 }
